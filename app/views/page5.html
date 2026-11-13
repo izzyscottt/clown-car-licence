@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Show frequency – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/page4"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/page5" method="post">
+
+        {{ govukRadios({
+          name: "showsPerYear",
+          fieldset: {
+            legend: {
+              text: "How many shows do you do per year?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            { value: "Less than 5", text: "Less than 5", checked: data['showsPerYear'] == "Less than 5" },
+            { value: "5-10", text: "5-10", checked: data['showsPerYear'] == "5-10" },
+            { value: "10+", text: "10+", checked: data['showsPerYear'] == "10+" }
+          ],
+          errorMessage: errors.showsPerYear
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

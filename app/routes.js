@@ -50,6 +50,12 @@ router.get('/page4', (req, res) => {
   })
 })
 
+router.get('/page5', (req, res) => {
+  res.render('page5', {
+    data: req.session.data || {}
+  })
+})
+
 router.get('/checkyouranswers', (req, res) => {
   res.render('checkyouranswers', {
     data: req.session.data || {}
@@ -216,4 +222,25 @@ router.post('/page4', (req, res) => {
   res.render('page4', {
     data: req.session.data
   })
+})
+
+// Page 5: Shows per year validation
+router.post('/page5', (req, res) => {
+  const showsPerYear = req.body.showsPerYear || ''
+  
+  if (!showsPerYear) {
+    return res.render('page5', {
+      errors: {
+        showsPerYear: {
+          text: 'Select how many shows you do per year'
+        }
+      },
+      data: req.session.data || {}
+    })
+  }
+  
+  req.session.data = req.session.data || {}
+  req.session.data.showsPerYear = showsPerYear
+  
+  res.redirect('/checkyouranswers')
 })

@@ -8,7 +8,7 @@
 {% block containerStart %}
   {{ govukBackLink({
     text: "Back",
-    href: "/page4"
+    href: "/page5"
   }) }}
 {% endblock %}
 
@@ -103,6 +103,23 @@
                   href: "/page4",
                   text: "Change",
                   visuallyHiddenText: "Clown certificate"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Shows per year"
+            },
+            value: {
+              text: data['showsPerYear']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/page5",
+                  text: "Change",
+                  visuallyHiddenText: "Shows per year"
                 }
               ]
             }
