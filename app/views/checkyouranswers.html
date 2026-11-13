@@ -1,0 +1,132 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/page4"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers before sending your application
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Clown name"
+            },
+            value: {
+              text: data['clownName']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/page1",
+                  text: "Change",
+                  visuallyHiddenText: "Clown name"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Years of experience"
+            },
+            value: {
+              text: data['yearsOfExperience']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/page2",
+                  text: "Change",
+                  visuallyHiddenText: "Years of experience"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Date started clowning"
+            },
+            value: {
+              text: data['date-started-day'] | formatDate(data['date-started-month'], data['date-started-year'])
+            },
+            actions: {
+              items: [
+                {
+                  href: "/page2",
+                  text: "Change",
+                  visuallyHiddenText: "Date started clowning"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Experience details"
+            },
+            value: {
+              text: data['experienceDetails']
+            },
+            actions: {
+              items: [
+                {
+                  href: "/page3",
+                  text: "Change",
+                  visuallyHiddenText: "Experience details"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Clown certificate"
+            },
+            value: {
+              text: data['clownCertificateFileName'] or "No file uploaded"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/page4",
+                  text: "Change",
+                  visuallyHiddenText: "Clown certificate"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">
+        Now send your application
+      </h2>
+
+      <p>
+        By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="/confirmation" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Accept and send"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
+Displaying 06-start-button.html.

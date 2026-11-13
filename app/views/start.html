@@ -1,0 +1,56 @@
+
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {{ serviceName }}
+{% endblock %}
+
+{% block header %}
+  <header>
+    {{govukHeader()}}
+  </header>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        {{ serviceName }}
+      </h1>
+
+      <p>Use this service to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>apply for a licence to drive a clown car</li>
+        <li>say how much clowning experience you have</li>
+      </ul>
+
+      <p>Applying takes around 5 minutes.</p>
+
+      {{ govukButton({
+        text: "Let's go",
+        href: "page1",
+        isStartButton: true
+      }) }}
+
+      <h2 class="govuk-heading-s">
+        Before you begin
+      </h2>
+
+      <p>
+        You will need to tell us about your clowning experience.
+      </p>
+
+      <p>
+        You can only apply for one clown car licence at a time.
+      </p>
+
+    </div>
+
+    
+  </div>
+
+{% endblock %}
+Displaying 06-start-button.html.

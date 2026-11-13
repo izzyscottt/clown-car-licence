@@ -1,0 +1,83 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Upload your clown certificate – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/page3"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if not data['clownCertificateFileName'] %}
+        <form class="form" action="/page4" method="post" enctype="multipart/form-data">
+
+          {{ govukFileUpload({
+            id: "clown-certificate",
+            name: "clownCertificate",
+            label: {
+              text: "Upload your clown certificate",
+              classes: "govuk-label--l",
+              isPageHeading: true
+            },
+            hint: {
+              text: "Upload a PDF or image file. Maximum file size is 10MB."
+            },
+            errorMessage: errors.clownCertificate
+          }) }}
+
+          {{ govukButton({
+            text: "Upload"
+          }) }}
+
+        </form>
+      {% else %}
+        <h1 class="govuk-heading-xl">Upload your clown certificate</h1>
+
+        <h2 class="govuk-heading-m">Uploaded file</h2>
+
+        <p class="govuk-body">
+          <strong>{{ data['clownCertificateFileName'] }}</strong>
+        </p>
+
+        {% set fileExt = data['clownCertificateFileName'] | lower %}
+        {% if fileExt.endsWith('.pdf') %}
+          <p class="govuk-body">
+            <a href="{{ data['clownCertificateData'] }}" class="govuk-link" target="_blank" rel="noopener noreferrer">
+              View PDF file
+            </a>
+          </p>
+        {% elif fileExt.endsWith('.jpg') or fileExt.endsWith('.jpeg') or fileExt.endsWith('.png') or fileExt.endsWith('.gif') or fileExt.endsWith('.webp') %}
+          <div style="border: 1px solid #b1b4b6; padding: 15px; margin-bottom: 20px; background-color: #f3f2f1;">
+            <img src="{{ data['clownCertificateData'] }}" alt="Uploaded certificate preview" style="max-width: 100%; max-height: 300px; display: block;">
+          </div>
+        {% endif %}
+
+        <div style="margin-bottom: 20px;">
+          <form class="form" action="/page4" method="post" style="display: inline;">
+            <input type="hidden" name="clearFile" value="true">
+            {{ govukButton({
+              text: "Upload different file",
+              classes: "govuk-button--secondary"
+            }) }}
+          </form>
+        </div>
+
+        <form class="form" action="/checkyouranswers" method="post">
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </form>
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endblock %}

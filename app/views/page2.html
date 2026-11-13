@@ -1,0 +1,79 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Clowning experience – {{ serviceName }}
+{% endblock %}
+
+{% block containerStart %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/page1"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="/page3" method="post">
+
+        {{ govukRadios({
+          name: "yearsOfExperience",
+          fieldset: {
+            legend: {
+              text: "How many years of clowning experience do you have?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            { value: "3 years or more", text: "3 years or more", checked: data['yearsOfExperience'] == "3 years or more" },
+            { value: "1 to 2 years", text: "1 to 2 years", checked: data['yearsOfExperience'] == "1 to 2 years" },
+            { value: "Less than 1 year", text: "Less than 1 year", checked: data['yearsOfExperience'] == "Less than 1 year" }
+          ],
+          errorMessage: errors.yearsOfExperience
+        }) }}
+
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{{ govukDateInput({
+  id: "date-started",
+  namePrefix: "date-started",
+  fieldset: {
+    legend: {
+      text: "When did you start clowning?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "For example, 27 3 2007"
+  },
+  errorMessage: errors.dateStarted,
+  items: [
+    {
+      name: "day",
+      value: data['date-started-day']
+    },
+    {
+      name: "month",
+      value: data['date-started-month']
+    },
+    {
+      name: "year",
+      value: data['date-started-year']
+    }
+  ]
+}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
